@@ -16,10 +16,8 @@ public class LocalDriverManager {
     }
 
     public static void cleanThreadPool() {
-        for (WebDriverController controller : webDrivers.values())
-            controller.shutdown();
-        for (Thread cur : webDrivers.keySet())
-            cur.interrupt();
+        webDrivers.values().forEach(WebDriverController::shutdown);
+        webDrivers.keySet().forEach(Thread::interrupt);
         webDrivers.clear();
     }
 }

@@ -11,7 +11,9 @@ public class GoogleTest extends AbstractTest {
         GooglePage googlePage = new GooglePage();
         googlePage.openPage(googlePage)
                 .type(GooglePage.query, "0")
-                .click(GooglePage.button);
+                .click(GooglePage.button)
+                .assertThat()
+                .assertTrue(googlePage.isVisible(GooglePage.button), "Google button is not visible");
     }
 
 
@@ -21,7 +23,10 @@ public class GoogleTest extends AbstractTest {
         googlePage.openPage(googlePage)
                 .type(GooglePage.query, "1")
                 .click(GooglePage.button);
+
+
     }
+
     @Test
     public void googleTest2() {
         GooglePage googlePage = new GooglePage();

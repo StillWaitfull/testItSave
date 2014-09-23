@@ -10,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.asserts.Assertion;
 import toolkit.driver.LocalDriverManager;
 import toolkit.driver.WebDriverController;
 
@@ -148,11 +149,8 @@ public abstract class OperationsHelper {
 
     public OperationsHelper waitElementForSec(By by, int seconds) {
         for (int i = 0; i < seconds; i++) {
-            if (findElement(by).isDisplayed()) {
-                break;
-            } else {
-                sendPause(1);
-            }
+            if (findElement(by).isDisplayed()) break;
+             else sendPause(1);
         }
         return this;
     }
@@ -324,6 +322,11 @@ public abstract class OperationsHelper {
         driver.findElement(by).click();
         return this;
     }
+
+    public Assertion assertThat(){
+     return new Assertion();
+    }
+
 
 
     public String getText(By by) {
@@ -654,5 +657,6 @@ public abstract class OperationsHelper {
         calendar.add(Calendar.DATE, countDay);
         return calendar.getTime();
     }
+
 
 }

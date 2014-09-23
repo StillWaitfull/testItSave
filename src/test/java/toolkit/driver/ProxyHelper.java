@@ -29,7 +29,6 @@ public class ProxyHelper {
             needProxy = Boolean.parseBoolean(System.getenv("enableProxy"));
         if (needProxy) {
             try {
-                //  server.setLocalHost(InetAddress.getByName("127.0.0.1"));
                 server.start();
                 server.setRequestTimeout(WebDriverController.TIMEOUT * 1000);
                 proxy = server.seleniumProxy();
