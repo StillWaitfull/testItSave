@@ -1,0 +1,15 @@
+/.classpath
+/.project
+/.settings
+/target
+*.prefs
+*.zip
+/eclipse
+/.metadata
+/test-output
+.idea
+webdriver.iml
+/bin
+/logs
+/helpStuff/task.txt
+/velocity.log

@@ -1,0 +1,15 @@
+configName: google.yml
+# To switch on the Firebug plugin
+firebug: true
+firebug-version: 2.0.3
+# Browser for launching tests
+browser: chrome
+#Timeout
+Timeout: 60
+
+
+#For proxy
+enableProxy: false
+proxyPort: 7000
+
+#mvn clean test -DsuiteFile=src/test/resources/suite/google.xml
