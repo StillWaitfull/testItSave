@@ -68,8 +68,10 @@ public class WebDriverController {
                     firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream");
                     capabilities.setBrowserName("firefox");
                     capabilities.setPlatform(Platform.ANY);
+                    //capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                     capabilities.setCapability(FirefoxDriver.PROFILE, firefoxProfile);
                     driver = new FirefoxDriver(capabilities);
+
                 } catch (Exception e) {
                     log.error("There was a problem with start firefox driver");
                 }
@@ -91,13 +93,17 @@ public class WebDriverController {
                     System.setProperty("webdriver.chrome.driver", OperationSystem.instance.isLinux() ? "lib" + File.separator + "chromedriver" : "lib" + File.separator + "chromedriver.exe");
                     driver = new ChromeDriver(capabilities);
                 } catch (Exception e) {
-                    log.error("There was a problem with start opera driver");
+                    log.error("There was a problem with start chrome driver");
                 }
                 break;
             case "opera": {
                 capabilities.setCapability("opera.arguments", "-fullscreen");
                 capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-                driver = new OperaDriver();
+                try {
+                    driver = new OperaDriver();
+                } catch (Exception e) {
+                    log.error("There was a problem with start opera driver");
+                }
                 break;
             }
             case "phantom":
@@ -117,7 +123,6 @@ public class WebDriverController {
 
     public void waitForPageLoaded() {
         ExpectedCondition<Boolean> expectation = driver1 -> executeScript("return document.readyState").toString().equals("complete");
-
         try {
             getInstanceWaitDriver().until(expectation);
         } catch (Throwable error) {

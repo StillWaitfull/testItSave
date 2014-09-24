@@ -1,6 +1,7 @@
 package tests;
 
 import composite.pages.GooglePage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
@@ -12,8 +13,11 @@ public class GoogleTest extends AbstractTest {
         googlePage.openPage(googlePage)
                 .type(GooglePage.query, "0")
                 .click(GooglePage.button)
-                .assertThat()
-                .assertTrue(googlePage.isVisible(GooglePage.button), "Google button is not visible");
+                .assertThat(
+                        () -> Assert.assertTrue(googlePage.isVisible(GooglePage.button), "Google button is not visible"),
+                        () -> Assert.assertTrue(googlePage.isVisible(GooglePage.query), "Google query is not visible")
+                );
+
     }
 
 

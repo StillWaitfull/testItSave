@@ -6,11 +6,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.asserts.Assertion;
 import toolkit.driver.LocalDriverManager;
 import toolkit.driver.WebDriverController;
 
@@ -20,10 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -323,8 +320,10 @@ public abstract class OperationsHelper {
         return this;
     }
 
-    public Assertion assertThat(){
-     return new Assertion();
+
+    public final void assertThat(Runnable... assertions) {
+           Arrays.asList(assertions).forEach(Runnable::run);
+
     }
 
 

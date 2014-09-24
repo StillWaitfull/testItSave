@@ -39,10 +39,6 @@ public class ProxyHelper {
     }
 
 
-    public static void main(String[] args) {
-        initProxy();
-    }
-
 
     public static void stopProxy() {
         if (needProxy) {
