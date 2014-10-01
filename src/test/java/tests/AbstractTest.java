@@ -1,10 +1,8 @@
 package tests;
 
 import org.apache.log4j.Logger;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import toolkit.Security.ZapProxy;
 import toolkit.driver.LocalDriverManager;
@@ -28,10 +26,7 @@ public abstract class AbstractTest {
         OperationsHelper.initBaseUrl();
     }
 
-    @BeforeClass
-    public void initData(ITestContext context) {
 
-    }
 
     @AfterMethod
     public void after() {

@@ -46,10 +46,9 @@ public class ZapProxy {
             return;
         try {
             File pf = new File(zapProgram);
-            Runtime runtime = java.lang.Runtime.getRuntime();
             log.info("Start ZAProxy [" + zapProgram + "]");
             log.info("Using working directory [" + pf.getParentFile().getPath() + "]");
-            final Process ps = runtime.exec(zapProgram, null, pf.getParentFile());
+            final Process ps = Runtime.getRuntime().exec(zapProgram, null, pf.getParentFile());
             ps.waitFor(10, TimeUnit.SECONDS);
             zapClientAPI = new ClientApi(zapProxyHost, zapProxyPort);
         } catch (Exception e) {
@@ -155,7 +154,7 @@ public class ZapProxy {
     }
 
     private static void reportAlerts() {
-        String fileNameNoExtension = FilenameUtils.concat("test-output" + File.separator + reportsDirectory, "report");
+        String fileNameNoExtension = FilenameUtils.concat("target" + File.separator + reportsDirectory, "report");
         String forXml = "?>";
         try {
             String alerts = getAllAlerts(format);

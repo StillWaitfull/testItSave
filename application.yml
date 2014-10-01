@@ -14,8 +14,8 @@ enableProxy: false
 proxyPort: 8080
 
 #Secutity
-zapScan: false
-zapProgram: /home/Restore/ZAP/zap.sh
+zapScan: true
+zapProgram: your path here
 reportsDirectory: ZapReports
 #can be html,xml,json
 reportFormat: xml
