@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 
 public class WebDriverListener implements IInvokedMethodListener {
     Logger log4j = Logger.getLogger(WebDriverListener.class);
-
+    private static ConcurrentSkipListSet<Integer> invocateds = new ConcurrentSkipListSet<>();
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
@@ -21,8 +21,6 @@ public class WebDriverListener implements IInvokedMethodListener {
         }
     }
 
-
-    private static ConcurrentSkipListSet<Integer> invocateds = new ConcurrentSkipListSet<>();
 
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {

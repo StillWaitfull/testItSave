@@ -3,13 +3,23 @@ configName: google.yml
 firebug: true
 firebug-version: 2.0.3
 # Browser for launching tests
-browser: chrome
+browser: firefox
 #Timeout
 Timeout: 60
 
 
 #For proxy
+host: 127.0.0.1
 enableProxy: false
-proxyPort: 7000
+proxyPort: 8080
+
+#Secutity
+zapScan: false
+zapProgram: /home/Restore/ZAP/zap.sh
+reportsDirectory: ZapReports
+#can be html,xml,json
+reportFormat: xml
+
+
 
 #mvn clean test -DsuiteFile=src/test/resources/suite/google.xml

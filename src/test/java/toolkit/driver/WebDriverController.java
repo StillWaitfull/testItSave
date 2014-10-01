@@ -46,7 +46,7 @@ public class WebDriverController {
     private void setBrowser() {
         String browser = System.getenv("browser");
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        if (ProxyHelper.needProxy) ProxyHelper.setCapabilities(capabilities);
+        ProxyHelper.setCapabilities(capabilities);
         if (browser == null) {
             browser = YamlConfigProvider.getAppParameters("browser");
         }
@@ -68,7 +68,6 @@ public class WebDriverController {
                     firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream");
                     capabilities.setBrowserName("firefox");
                     capabilities.setPlatform(Platform.ANY);
-                    //capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                     capabilities.setCapability(FirefoxDriver.PROFILE, firefoxProfile);
                     driver = new FirefoxDriver(capabilities);
 
@@ -81,7 +80,7 @@ public class WebDriverController {
                 try {
                     System.setProperty("webdriver.ie.driver", "lib" + File.separator + "IEDriverServer64.exe");
                     DesiredCapabilities capabilitiesIe = DesiredCapabilities.internetExplorer();
-                    if (ProxyHelper.needProxy) ProxyHelper.setCapabilities(capabilitiesIe);
+                    ProxyHelper.setCapabilities(capabilitiesIe);
                     capabilitiesIe.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
                     driver = new InternetExplorerDriver(capabilitiesIe);
                 } catch (Exception e) {

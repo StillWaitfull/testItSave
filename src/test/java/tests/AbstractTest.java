@@ -6,8 +6,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
+import toolkit.Security.ZapProxy;
 import toolkit.driver.LocalDriverManager;
-import toolkit.driver.ProxyHelper;
 import toolkit.driver.WebDriverListener;
 import toolkit.helpers.OperationsHelper;
 
@@ -22,7 +22,9 @@ public abstract class AbstractTest {
 
     protected static Logger log4j = Logger.getLogger(AbstractTest.class);
 
+
     public AbstractTest() {
+        ZapProxy.run();
         OperationsHelper.initBaseUrl();
     }
 
@@ -40,6 +42,6 @@ public abstract class AbstractTest {
     @AfterSuite
     public void cleanPool() {
         LocalDriverManager.cleanThreadPool();
-        ProxyHelper.stopProxy();
+        ZapProxy.execute(OperationsHelper.baseUrl);
     }
 }
