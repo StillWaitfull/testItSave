@@ -37,12 +37,12 @@ public class ZapProxy {
     private final static String HIGH = "HIGH";
     static Logger log = Logger.getLogger(ZapProxy.class);
     private static ClientApi zapClientAPI;
-
-
+    static boolean spiderScan = Boolean.parseBoolean(YamlConfigProvider.getAppParameters("spiderScan"));
+    static boolean activeScan = Boolean.parseBoolean(YamlConfigProvider.getAppParameters("activeScan"));
 
 
     public static void run() {
-        if(!Boolean.parseBoolean(YamlConfigProvider.getAppParameters("zapScan")))
+        if (!Boolean.parseBoolean(YamlConfigProvider.getAppParameters("zapScan")))
             return;
         try {
             File pf = new File(zapProgram);
@@ -61,16 +61,19 @@ public class ZapProxy {
 
     public static void execute(String url) {
         boolean check = true;
-        if(!Boolean.parseBoolean(YamlConfigProvider.getAppParameters("zapScan")))
+        if (!Boolean.parseBoolean(YamlConfigProvider.getAppParameters("zapScan")))
             return;
         setAlertAndAttackStrength();
-        spiderWithZap(url);
-        scanWithZap(url);
+        if (spiderScan) spiderWithZap(url);
+        if (activeScan) scanWithZap(url);
         reportAlerts();
-        try { check =checkAlerts(zapClientAPI.getAlerts("", -1, -1));}
-        catch (ClientApiException e) {e.printStackTrace();}
+        try {
+            check = checkAlerts(zapClientAPI.getAlerts("", -1, -1));
+        } catch (ClientApiException e) {
+            e.printStackTrace();
+        }
         shutdown();
-        Assert.assertTrue(check,"There is HIGH Risk alerts in your target");
+        Assert.assertTrue(check, "There is HIGH Risk alerts in your target");
 
     }
 
@@ -116,7 +119,6 @@ public class ZapProxy {
     }
 
 
-
     private static void shutdown() {
         try {
             zapClientAPI.core.shutdown();
@@ -127,12 +129,10 @@ public class ZapProxy {
     }
 
 
-
-
     private static boolean checkAlerts(List<Alert> alerts) {
         List<Alert> filtered = new ArrayList<>();
-            filtered.addAll(alerts.stream().filter(alert -> alert.getRisk().equals(Alert.Risk.High) && alert.getReliability() != Alert.Reliability.Suspicious).collect(Collectors.toList()));
-        return filtered.size()==0;
+        filtered.addAll(alerts.stream().filter(alert -> alert.getRisk().equals(Alert.Risk.High) && alert.getReliability() != Alert.Reliability.Suspicious).collect(Collectors.toList()));
+        return filtered.size() == 0;
     }
 
 
@@ -171,7 +171,6 @@ public class ZapProxy {
             log.error(e.toString());
         }
     }
-
 
 
     private static int statusToInt(ApiResponse response) {

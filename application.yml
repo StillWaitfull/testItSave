@@ -15,10 +15,12 @@ proxyPort: 8080
 
 #Secutity
 zapScan: true
-zapProgram: your path here
+zapProgram: /home/Restore/ZAP/zap.sh
 reportsDirectory: ZapReports
 #can be html,xml,json
 reportFormat: xml
+activeScan: false
+spiderScan: false
 
 
 
